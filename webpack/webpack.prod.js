@@ -8,12 +8,21 @@ const SRC_PATH = path.resolve(ROOT_DIR, "example-app");
 
 module.exports = {
   mode: "production",
-  entry: path.resolve(SRC_PATH, "index.tsx"),
+  entry: {
+    minimal: {
+      import: path.resolve(SRC_PATH, "minimal-index.tsx"),
+      filename: "[name].js",
+    },
+    index: {
+      import: path.resolve(SRC_PATH, "index.tsx"),
+      filename: "[name].js",
+    },
+  },
 
   output: {
     publicPath: "/",
-    filename: "bundle.js",
     path: path.resolve(ROOT_DIR, "build"),
+    filename: "[name].js",
   },
 
   plugins: [

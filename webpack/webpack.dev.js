@@ -8,11 +8,15 @@ const SRC_PATH = path.resolve(ROOT_DIR, "example-app");
 
 module.exports = {
   mode: "development",
-  entry: path.resolve(SRC_PATH, "index.tsx"),
+  entry: [
+    path.resolve(SRC_PATH, "index.tsx"),
+    path.resolve(SRC_PATH, "minimal-index.tsx"),
+  ],
 
   output: {
     publicPath: "/",
-    filename: "bundle.js",
+    filename: "[name].js",
+
     path: path.resolve(ROOT_DIR, "build"),
   },
 
