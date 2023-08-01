@@ -8,7 +8,7 @@ const SRC_PATH = path.resolve(ROOT_DIR, "example-app");
 
 module.exports = {
   mode: "development",
-  entry: path.resolve(SRC_PATH, "index.jsx"),
+  entry: path.resolve(SRC_PATH, "index.tsx"),
 
   output: {
     publicPath: "/",
@@ -34,7 +34,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.(js|jsx)$/,
+        test: /.(ts|tsx|js|jsx)$/,
         include: [SRC_PATH],
         use: [
           {
@@ -42,7 +42,11 @@ module.exports = {
             options: {
               plugins: ["syntax-dynamic-import"],
 
-              presets: ["@babel/preset-env", "@babel/preset-react"],
+              presets: [
+                "@babel/preset-typescript",
+                "@babel/preset-react",
+                "@babel/preset-env",
+              ],
             },
           },
         ],
@@ -71,7 +75,7 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".css", ".json"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".css", ".json"],
     alias: {
       Assets: path.resolve(ROOT_DIR, path.resolve(SRC_PATH, "assets")),
       Components: path.resolve(ROOT_DIR, path.resolve(SRC_PATH, "components")),
