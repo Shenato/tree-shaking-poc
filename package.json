@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "webpack-dev": "webpack-dev-server --config ./webpack/webpack.dev.js",
-    "webpack-build-dev": "webpack --config ./webpack/webpack.dev.js",
-    "webpack-start": "webpack-dev-server --port 3000 --host 0.0.0.0 --config ./webpack/webpack.prod.js",
-    "webpack-build": "NODE_ENV=production && webpack --config ./webpack/webpack.prod.js"
+    "webpack-dev": "webpack-dev-server --config ./bundlers/webpack/webpack.dev.js",
+    "webpack-build-dev": "webpack --config ./bundlers/webpack/webpack.dev.js",
+    "webpack-start": "webpack-dev-server --port 3000 --host 0.0.0.0 --config ./bundlers/webpack/webpack.prod.js",
+    "webpack-build": "NODE_ENV=production && webpack --config ./bundlers/webpack/webpack.prod.js",
+    "esbuild-build": "node ./bundlers/esbuild/esbuild.js"
   },
   "repository": {
     "type": "git",
@@ -31,6 +32,7 @@
     "copy-webpack-plugin": "^5.1.1",
     "css-loader": "^3.4.0",
     "dotenv": "^7.0.0",
+    "esbuild": "^0.18.17",
     "eslint-plugin-react-hooks": "^1.7.0",
     "file-loader": "^5.0.2",
     "history": "^4.10.1",

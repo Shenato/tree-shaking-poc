@@ -3,21 +3,26 @@ const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-const ROOT_DIR = path.resolve(__dirname, "../");
+const ROOT_DIR = path.resolve(__dirname, "../", "../");
 const SRC_PATH = path.resolve(ROOT_DIR, "example-app");
 
 module.exports = {
-  mode: "development",
-  entry: [
-    path.resolve(SRC_PATH, "index.tsx"),
-    path.resolve(SRC_PATH, "minimal-index.tsx"),
-  ],
+  mode: "production",
+  entry: {
+    minimal: {
+      import: path.resolve(SRC_PATH, "minimal-index.tsx"),
+      filename: "[name].js",
+    },
+    index: {
+      import: path.resolve(SRC_PATH, "index.tsx"),
+      filename: "[name].js",
+    },
+  },
 
   output: {
     publicPath: "/",
-    filename: "[name].js",
-
     path: path.resolve(ROOT_DIR, "build"),
+    filename: "[name].js",
   },
 
   plugins: [
@@ -91,6 +96,11 @@ module.exports = {
       Styles: path.resolve(ROOT_DIR, path.resolve(SRC_PATH, "styles")),
       Utils: path.resolve(ROOT_DIR, path.resolve(SRC_PATH, "utils")),
     },
+  },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
   },
   optimization: {
     splitChunks: {
