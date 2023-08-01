@@ -36,22 +36,25 @@ module.exports = {
       {
         test: /.(js|jsx)$/,
         include: [SRC_PATH],
-        loader: "babel-loader",
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              plugins: ["syntax-dynamic-import"],
 
-        options: {
-          plugins: ["syntax-dynamic-import"],
-
-          presets: ["@babel/preset-env", "@babel/preset-react"],
-        },
+              presets: ["@babel/preset-env", "@babel/preset-react"],
+            },
+          },
+        ],
       },
       {
         test: /\.css$/,
         include: [SRC_PATH],
-        loader: ["style-loader", "css-loader"],
+        use: ["style-loader", "css-loader"],
       },
       {
         test: /\.svg$/,
-        loader: "svg-inline-loader",
+        use: "svg-inline-loader",
       },
       {
         test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
@@ -81,6 +84,11 @@ module.exports = {
       Utils: path.resolve(ROOT_DIR, path.resolve(SRC_PATH, "utils")),
     },
   },
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000,
+  },
   optimization: {
     splitChunks: {
       cacheGroups: {
@@ -93,14 +101,12 @@ module.exports = {
       chunks: "async",
       minChunks: 1,
       minSize: 30000,
-      name: true,
+      name: false,
     },
   },
   devtool: "source-map",
   devServer: {
-    contentBase: [path.join(ROOT_DIR, "build"), path.join(ROOT_DIR, "assets")],
-    publicPath: "/",
-    disableHostCheck: true,
+    static: [path.join(ROOT_DIR, "build")],
     historyApiFallback: true,
     open: true,
     port: process.env.PORT || 3000,
